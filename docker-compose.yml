@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    image: sanic-log-plugin
+    build: .
+    command: ["/app/src/run.py"]
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+
