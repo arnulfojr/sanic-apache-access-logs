@@ -1,7 +1,7 @@
 import logging
 
-from .helpers import build_extras, build_logging_config
 from spf import SanicPlugin
+from sanic_access_logs.helpers import build_extras, build_logging_config
 
 
 class AccessLogPlugin(SanicPlugin):

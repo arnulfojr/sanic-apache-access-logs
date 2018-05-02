@@ -1,6 +1,6 @@
 from sanic.response import HTTPResponse
 
-from .templates import LOGGER_DEFAULT, HANDLER_TEMPLATE, LOGGING_CONFIG_DEFAULTS
+from sanic_access_logs.templates import LOGGER_DEFAULT, HANDLER_TEMPLATE, LOGGING_CONFIG_DEFAULTS
 
 
 def build_extras(request, response):
@@ -48,6 +48,7 @@ def build_logging_configuration(logger_name,
                                 combined=False,
                                 template=LOGGING_CONFIG_DEFAULTS):
     """Build the logging configuration."""
+    configuration = template
     configuration['handlers'] = dict()
     handler = _build_handler(handler_name, combined)
     configuration.handlers[handler_name] = handler
@@ -60,8 +61,8 @@ def build_logging_configuration(logger_name,
     return configuration
 
 
-# make an alias
-build_logging_conf = build_logging_configuration
+# make an aliases
+build_logging_config = build_logging_conf = build_logging_configuration
 
 
 def _build_handler(name, combined=False, template=HANDLER_TEMPLATE):
