@@ -5,6 +5,9 @@ import os
 from setuptools import setup
 
 
+__version__ = '0.1.1'
+
+
 def open_local(paths, mode='r', encoding='utf8'):
     path = os.path.join(
         os.path.join(
@@ -24,12 +27,16 @@ with open_local(['requirements.txt']) as req:
 setup(
     name='sanic_access_logs',
     packages=['sanic_access_logs'],
-    version='0.1',
+    version=__version__,
     description='Apache Access Logs for Sanic',
     author='Arnulfo Solis',
     author_email='arnulfojr94@gmail.com',
     url='https://github.com/arnulfojr/sanic-apache-access-logs',
-    download_url='https://github.com/arnulfojr/sanic-apache-access-logs/archive/0.1.tar.gz',
+    download_url='https://github.com/arnulfojr/sanic-apache-access-logs/archive/{}.tar.gz'.format(__version__),
+    zip_safe=False,
+    include_package_data=True,
+    platforms='any',
+    install_requires=install_requires,
     keywords=['accesslog', 'access', 'logs', 'sanic', 'plugin'],
     classifiers=[
         'Intended Audience :: Developers',
