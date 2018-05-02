@@ -5,7 +5,7 @@ import os
 from setuptools import setup
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 
 
 def open_local(paths, mode='r', encoding='utf8'):
@@ -19,6 +19,10 @@ def open_local(paths, mode='r', encoding='utf8'):
     return codecs.open(path, mode, encoding)
 
 
+with open_local(['README.md']) as readme:
+    long_description = readme.read()
+
+
 with open_local(['requirements.txt']) as req:
     install_requires = req.read().split("\n")
 
@@ -29,6 +33,7 @@ setup(
     packages=['sanic_access_logs'],
     version=__version__,
     description='Apache Access Logs for Sanic',
+    long_description=long_description,
     author='Arnulfo Solis',
     author_email='arnulfojr94@gmail.com',
     url='https://github.com/arnulfojr/sanic-apache-access-logs',
