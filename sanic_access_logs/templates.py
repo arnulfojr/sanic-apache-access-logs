@@ -12,7 +12,8 @@ LOGGER_DEFAULT = {
 HANDLER_TEMPLATE = {
     'class': 'logging.StreamHandler',
     'formatter': '',
-    'stream': sys.stdout
+    'stream': sys.stdout,
+    'level': 'INFO'
 }
 
 

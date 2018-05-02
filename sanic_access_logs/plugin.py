@@ -6,19 +6,17 @@ from sanic_access_logs.helpers import build_extras, build_logging_config
 
 class AccessLogPlugin(SanicPlugin):
 
-    def __init__(self,
-                 logger_name='sanic.plugin.accesslog',
-                 handler_name='sanic.plugin.accesslog.handler',
-                 combined=False,
-                 *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(AccessLogPlugin, self).__init__(*args, **kwargs)
         # set the logger information
-        self.logger_name = logger_name
-        self.handler_name = handler_name
-        self.combined = combined
-        self.configuration = build_logging_config(logger_name,
-                                                  handler_name,
-                                                  combined)
+        self.logger_name = kwargs.get('logger_name',
+                                      'sanic.plugin.accesslog')
+        self.handler_name = kwargs.get('handler_name',
+                                       'sanic.plugin.accesslog.handler')
+        self.combined = kwargs.get('combined', True)
+        self.configuration = build_logging_config(self.logger_name,
+                                                  self.handler_name,
+                                                  self.combined)
 
     @property
     def logger(self):
@@ -27,6 +25,7 @@ class AccessLogPlugin(SanicPlugin):
 
     def on_registered(self, context, reg, *args, **kwargs):
         """Register the logger into the private context."""
+        logging.config.dictConfig(self.configuration)
         context.logger = self.logger
 
 

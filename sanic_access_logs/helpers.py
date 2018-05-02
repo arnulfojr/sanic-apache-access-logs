@@ -50,7 +50,7 @@ def build_logging_configuration(logger_name,
     """Build the logging configuration."""
     configuration = template
     configuration['handlers'] = dict()
-    handler = _build_handler(handler_name, combined)
+    handler = _build_handler(handler_name, combined=combined)
     configuration['handlers'][handler_name] = handler
     handlers = [handler_name]
 
