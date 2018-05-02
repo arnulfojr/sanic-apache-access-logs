@@ -29,7 +29,7 @@ LOGGING_CONFIG_DEFAULTS = dict(
         },
         'combined': {
             'format': '%(h)s %(l)s %(u)s %(asctime)s '
-                      + '"%(m)s %(U)s%(q)s %(H)s" %(s)d %(b)d'
+                      + '"%(m)s %(U)s%(q)s %(H)s" %(s)d %(b)d '
                       + '"%(Referer)s" "%(User-Agent)s"',
             'datefmt': '[%Y-%m-%d %H:%M:%S%z]',
             'class': 'logging.Formatter'
