@@ -51,13 +51,13 @@ def build_logging_configuration(logger_name,
     configuration = template
     configuration['handlers'] = dict()
     handler = _build_handler(handler_name, combined)
-    configuration.handlers[handler_name] = handler
+    configuration['handlers'][handler_name] = handler
     handlers = [handler_name]
 
     configuration['loggers'] = dict()
     logger = _build_logger(logger_name,
                            handlers)
-    configuration.loggers[logger_name] = logger
+    configuration['loggers'][logger_name] = logger
     return configuration
 
 
@@ -67,7 +67,7 @@ build_logging_config = build_logging_conf = build_logging_configuration
 
 def _build_handler(name, combined=False, template=HANDLER_TEMPLATE):
     handler = template
-    handler.formatter = 'combined' if combined else 'common'
+    handler['formatter'] = 'combined' if combined else 'common'
     return handler
 
 

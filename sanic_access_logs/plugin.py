@@ -44,7 +44,6 @@ def print_access_log(request, response, context):
         return response
 
     extras = build_extras(request, response)
-
     # log the access
-    logger.info('', extra=extra)
+    logger.info('', extra=extras)
     return response
