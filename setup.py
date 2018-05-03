@@ -7,6 +7,9 @@ from setuptools import setup
 __version__ = '0.2.1'
 
 
+URL = 'https://github.com/arnulfojr/sanic_apache_accesslogs'
+
+
 def open_local(paths, mode='r', encoding='utf8'):
     path = os.path.join(
         os.path.join(
@@ -35,8 +38,8 @@ setup(
     long_description=long_description,
     author='Arnulfo Solis',
     author_email='arnulfojr94@gmail.com',
-    url='https://github.com/arnulfojr/sanic-apache-access-logs',
-    download_url='https://github.com/arnulfojr/sanic-apache-access-logs/archive/{}.tar.gz'.format(__version__),
+    url=URL,
+    download_url='{}/archive/{}.tar.gz'.format(URL, __version__),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
@@ -57,4 +60,3 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
 )
-
