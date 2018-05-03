@@ -1,6 +1,6 @@
+"""Helper module for the plugin."""
 from sanic.response import HTTPResponse
-
-from sanic_access_logs.templates import LOGGER_DEFAULT, HANDLER_TEMPLATE, LOGGING_CONFIG_DEFAULTS
+from sanic_access_logs import templates
 
 
 def build_extras(request, response):
@@ -22,7 +22,7 @@ def build_extras(request, response):
 
     if request.ip:
         extra['h'] = request.ip
-    
+
     if request.remote_addr:  # get the real IP from the request
         extra['h'] = request.remote_addr
 
@@ -33,6 +33,8 @@ def build_extras(request, response):
     extra['U'] = request.path
     if request.query_string:
         extra['q'] = '?{}'.format(request.query_string)
+
+    # add the HTTP protocol version
     extra['H'] = 'HTTP/{}'.format(request.version)
 
     if 'User-Agent' in request.headers:
@@ -46,18 +48,20 @@ def build_extras(request, response):
 def build_logging_configuration(logger_name,
                                 handler_name,
                                 combined=False,
-                                template=LOGGING_CONFIG_DEFAULTS):
+                                template=templates.LOGGING_CONFIG_DEFAULTS):
     """Build the logging configuration."""
     configuration = template
+    # structure the handler(s)
     configuration['handlers'] = dict()
-    handler = _build_handler(handler_name, combined)
-    configuration.handlers[handler_name] = handler
+    handler = _build_handler(combined=combined)
+    configuration['handlers'][handler_name] = handler
     handlers = [handler_name]
 
+    # Structure the loggers
     configuration['loggers'] = dict()
     logger = _build_logger(logger_name,
                            handlers)
-    configuration.loggers[logger_name] = logger
+    configuration['loggers'][logger_name] = logger
     return configuration
 
 
@@ -65,14 +69,17 @@ def build_logging_configuration(logger_name,
 build_logging_config = build_logging_conf = build_logging_configuration
 
 
-def _build_handler(name, combined=False, template=HANDLER_TEMPLATE):
+def _build_handler(combined, template=templates.HANDLER_TEMPLATE):
+    """Build the handler for combined or common."""
     handler = template
-    handler.formatter = 'combined' if combined else 'common'
+    handler['formatter'] = 'combined' if combined else 'common'
     return handler
 
 
-def _build_logger(name, handlers, template=LOGGER_DEFAULT):
+def _build_logger(name, handlers, template=templates.LOGGER_DEFAULT):
+    """Build the logger."""
     logger = template
     logger['qualname'] = name
     logger['handlers'] = handlers
+
     return logger

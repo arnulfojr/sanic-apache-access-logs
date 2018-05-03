@@ -1,11 +1,13 @@
-
 import codecs
 import os
 
 from setuptools import setup
 
 
-__version__ = '0.1.2'
+__version__ = '0.2.1'
+
+
+URL = 'https://github.com/arnulfojr/sanic_apache_accesslogs'
 
 
 def open_local(paths, mode='r', encoding='utf8'):
@@ -19,20 +21,25 @@ def open_local(paths, mode='r', encoding='utf8'):
     return codecs.open(path, mode, encoding)
 
 
+with open_local(['README.md']) as readme:
+    long_description = readme.read()
+
+
 with open_local(['requirements.txt']) as req:
     install_requires = req.read().split("\n")
 
 
 # http://peterdowns.com/posts/first-time-with-pypi.html
 setup(
-    name='sanic_access_logs',
-    packages=['sanic_access_logs'],
+    name='sanic_apache_accesslogs',
+    packages=['sanic_apache_accesslogs'],
     version=__version__,
     description='Apache Access Logs for Sanic',
+    long_description=long_description,
     author='Arnulfo Solis',
     author_email='arnulfojr94@gmail.com',
-    url='https://github.com/arnulfojr/sanic-apache-access-logs',
-    download_url='https://github.com/arnulfojr/sanic-apache-access-logs/archive/{}.tar.gz'.format(__version__),
+    url=URL,
+    download_url='{}/archive/{}.tar.gz'.format(URL, __version__),
     zip_safe=False,
     include_package_data=True,
     platforms='any',
@@ -53,4 +60,3 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
 )
-
