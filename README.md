@@ -11,7 +11,9 @@ from sanic.response import json
 from sanic_apache_accesslogs import AccessLogPlugin
 
 
-app = Sanic(__name__, configure_logging=False)
+# If using gunicorn, for example, the logging configuration should
+# ignore `sanic.access`
+app = Sanic(__name__)
 
 AccessLogPlugin(app)
 
@@ -22,6 +24,7 @@ async def hello(request):
 
 
 if __name__ == '__main__':
+    # do not use sanic's access logs
     app.run(host='localhost', port=5000, access_log=False)
 ```
 
