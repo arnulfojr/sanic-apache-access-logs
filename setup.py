@@ -1,11 +1,10 @@
-
 import codecs
 import os
 
 from setuptools import setup
 
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 
 def open_local(paths, mode='r', encoding='utf8'):
@@ -29,8 +28,8 @@ with open_local(['requirements.txt']) as req:
 
 # http://peterdowns.com/posts/first-time-with-pypi.html
 setup(
-    name='sanic_access_logs',
-    packages=['sanic_access_logs'],
+    name='sanic_apache_accesslogs',
+    packages=['sanic_apache_accesslogs'],
     version=__version__,
     description='Apache Access Logs for Sanic',
     long_description=long_description,

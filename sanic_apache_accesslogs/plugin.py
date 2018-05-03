@@ -1,7 +1,9 @@
 import logging
+import logging.config
 
 from spf import SanicPlugin
 from sanic_access_logs.helpers import build_extras, build_logging_config
+from sanic_access_logs.settings import IS_COMBINED
 
 
 class AccessLogPlugin(SanicPlugin):
@@ -13,7 +15,7 @@ class AccessLogPlugin(SanicPlugin):
                                       'sanic.plugin.accesslog')
         self.handler_name = kwargs.get('handler_name',
                                        'sanic.plugin.accesslog.handler')
-        self.combined = kwargs.get('combined', True)
+        self.combined = kwargs.get('combined', IS_COMBINED)
         self.configuration = build_logging_config(self.logger_name,
                                                   self.handler_name,
                                                   self.combined)
@@ -29,6 +31,7 @@ class AccessLogPlugin(SanicPlugin):
         context.logger = self.logger
 
 
+# instantiate a plugin for SPF
 my_plugin = instance = AccessLogPlugin()
 
 

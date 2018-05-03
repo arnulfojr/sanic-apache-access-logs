@@ -1,6 +1,7 @@
 import sys
 
 
+# Logger Template
 LOGGER_DEFAULT = {
     'level': 'INFO',
     'handlers': [],
@@ -9,6 +10,7 @@ LOGGER_DEFAULT = {
 }
 
 
+# Handler template for stdout
 HANDLER_TEMPLATE = {
     'class': 'logging.StreamHandler',
     'formatter': '',
@@ -17,6 +19,7 @@ HANDLER_TEMPLATE = {
 }
 
 
+# Logging dict configuration
 LOGGING_CONFIG_DEFAULTS = dict(
     version=1,
     disable_existing_loggers=False,
