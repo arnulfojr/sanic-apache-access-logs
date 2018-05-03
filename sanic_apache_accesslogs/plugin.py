@@ -2,8 +2,8 @@ import logging
 import logging.config
 
 from spf import SanicPlugin
-from sanic_access_logs.helpers import build_extras, build_logging_config
-from sanic_access_logs.settings import IS_COMBINED
+from sanic_apache_accesslogs import helpers
+from sanic_apache_accesslogs import settings
 
 
 class AccessLogPlugin(SanicPlugin):
@@ -15,10 +15,10 @@ class AccessLogPlugin(SanicPlugin):
                                       'sanic.plugin.accesslog')
         self.handler_name = kwargs.get('handler_name',
                                        'sanic.plugin.accesslog.handler')
-        self.combined = kwargs.get('combined', IS_COMBINED)
-        self.configuration = build_logging_config(self.logger_name,
-                                                  self.handler_name,
-                                                  self.combined)
+        self.combined = kwargs.get('combined', settings.IS_COMBINED)
+        self.configuration = helpers.build_logging_config(self.logger_name,
+                                                          self.handler_name,
+                                                          self.combined)
 
     @property
     def logger(self):
@@ -45,7 +45,7 @@ def print_access_log(request, response, context):
     if request is None:  # no request, do nothing
         return response
 
-    extras = build_extras(request, response)
+    extras = helpers.build_extras(request, response)
     # log the access
     logger.info('', extra=extras)
     return response

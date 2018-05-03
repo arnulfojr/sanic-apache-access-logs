@@ -1,6 +1,6 @@
 """Helper module for the plugin."""
 from sanic.response import HTTPResponse
-from sanic_access_logs import templates
+from sanic_apache_accesslogs import templates
 
 
 def build_extras(request, response):
